@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
+.headers {
+        @apply justify-start text-zinc-900 text-3xl font-semibold font-['Poppins'] leading-10;
+    }
     .navbar {
         @apply bg-gray-800 text-white px-6 py-3 flex items-center justify-between shadow-md;
     }

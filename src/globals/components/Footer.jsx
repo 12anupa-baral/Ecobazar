@@ -3,7 +3,7 @@ import Logo from "../../../public/icons/logo";
 import { Lock } from "lucide-react";
 
 const FooterColumn = ({ title, items }) => (
-  <div className="flex flex-col justify-start items-start gap-5">
+  <div className="flex flex-col justify-start items-start gap-5 min-w-[150px]">
     <div className="text-white text-base font-medium font-['Poppins']">
       {title}
     </div>
@@ -24,7 +24,7 @@ const FooterColumn = ({ title, items }) => (
 
 const Footer = () => {
   return (
-    <footer className="px-72 pt-14 bg-zinc-900 flex flex-col gap-14">
+    <footer className="bg-zinc-900 flex flex-col gap-14 px-6 sm:px-10 lg:px-28 pt-14">
       {/* Brand and contact */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
@@ -33,11 +33,11 @@ const Footer = () => {
             Ecobazar
           </div>
         </div>
-        <p className="w-80 text-zinc-500 text-sm font-normal font-['Poppins'] leading-tight">
+        <p className="max-w-sm text-zinc-500 text-sm font-normal font-['Poppins'] leading-tight">
           Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis
           dui, eget bibendum magna congue nec.
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <div className="py-1.5 px-2 bg-zinc-900 shadow-[0px_1.5px_0px_0px_rgba(32,181,38,1.00)] text-white text-sm font-medium font-['Poppins']">
             (219) 555-0114
           </div>
@@ -51,7 +51,7 @@ const Footer = () => {
       </div>
 
       {/* Footer columns */}
-      <div className="flex gap-20 flex-wrap">
+      <div className="flex flex-wrap gap-x-10 gap-y-10">
         <FooterColumn
           title="My Account"
           items={[
@@ -91,11 +91,11 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="w-full py-6 bg-zinc-900 border-t border-zinc-800 flex justify-between items-center">
-        <p className="text-zinc-500 text-sm font-normal font-['Poppins']">
+      <div className="w-full py-6 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="text-zinc-500 text-sm font-normal font-['Poppins'] text-center md:text-left">
           Ecobazar eCommerce © 2021. All Rights Reserved
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
@@ -104,11 +104,7 @@ const Footer = () => {
           ))}
           <div className="w-16 h-8 bg-zinc-900 rounded-md border border-zinc-800" />
           <div className="flex items-center gap-1">
-            {/* <div className="w-2.5 h-2.5 relative bg-zinc-900">
-              <div className="w-2 h-[5px] absolute left-1.5 top-[5px] outline outline-1 outline-white" />
-              <div className="w-1 h-1 absolute left-[3px] top-1 outline outline-1 outline-white" />
-            </div> */}
-            <Lock className="co"/>
+            <Lock className="text-white w-4 h-4" />
             <span className="text-white text-xs font-normal font-['Poppins']">
               Secure
             </span>
