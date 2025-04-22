@@ -24,3 +24,7 @@ export interface IProducts{
     status : Status, 
     product : IProduct | null
 }
+
+export interface IQuantity {
+  quantity: number;
+}

@@ -60,13 +60,24 @@ export function fetchProduct(id:string){
             dispatch(setStatus(Status.SUCCESS))
         }else{
             try {
-                const response = await API.get("/product/" + id)
-                if(response.status === 200){
-                    dispatch(setStatus(Status.SUCCESS))
-                    dispatch(setProduct( response.data.data))
-                }else{
-                    dispatch(setStatus(Status.ERROR))
-                }
+              const response = await API.get("/product/" + id);
+              // if(response.status === 200){
+              //     dispatch(setStatus(Status.SUCCESS))
+              //     dispatch(setProduct( response.data.data))
+              // }else{
+              //     dispatch(setStatus(Status.ERROR))
+              // }
+
+              if (response.status === 200) {
+                dispatch(setStatus(Status.SUCCESS));
+                const singleProduct = Array.isArray(response.data.data)
+                  ? response.data.data[0]
+                  : response.data.data;
+
+                dispatch(setProduct(singleProduct));
+              } else {
+                dispatch(setStatus(Status.ERROR));
+              }
             } catch (error) {
                 console.log(error)
                 dispatch(setStatus(Status.ERROR))
