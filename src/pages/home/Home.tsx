@@ -94,21 +94,11 @@ function Home() {
         </div>
 
         {/* Popular Categories */}
-        {/* <section>
-          <div className="container mx-auto py-9 px-4 sm:px-6 lg:px-8">
-            <h2 className="headers text-center">Popular Category</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-5 gap-4 pt-6 w-full">
-              {category.map((item, index) => (
-                <CategoryCard key={index} categoryName={item} />
-              ))}
-            </div>
-          </div>
-        </section> */}
 
         <section>
           <div className="container mx-auto py-9 px-4 sm:px-6 lg:px-8">
             <h2 className="headers text-center">Popular Category</h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 w-full">
+            <div className="grid grid-cols-2 2xl:grid-cols-4 gap-6 pt-6 w-full">
               {category.map((item, index) => (
                 <CategoryCard key={index} category={item} />
               ))}

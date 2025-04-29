@@ -15,7 +15,6 @@ const Cart = () => {
         },
       });
       setCartItems(response?.data?.data || []);
-      console.log("cartItems", response.data.data);
     } catch (error) {
       console.error("Error fetching cart items", error);
     }
@@ -24,75 +23,76 @@ const Cart = () => {
   useEffect(() => {
     fetchCartItems();
   }, []);
-    
+
+  const handleQuantityChange = (type: string) => {
+    // Handle logic here
+  };
 
   return (
-    <section className="w-full bg-white dark:bg-[#0A2025] py-9 px-8">
-      <h1 className="text-center text-[#191919] dark:text-white text-[32px] font-semibold leading-[38px]">
+    <section className="w-full bg-white dark:bg-[#0A2025] py-9 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-center text-[#191919] dark:text-white text-2xl sm:text-3xl font-semibold">
         My Shopping Cart
       </h1>
-      <div className="flex items-start mt-8 gap-6">
-        <div className="bg-white p-4 w-[800px] rounded-xl">
-          <table className="w-full bg-white rounded-xl">
+
+      <div className="flex flex-col lg:flex-row items-start mt-8 gap-6">
+        {/* Left: Cart Items */}
+        <div className="w-full lg:w-2/3 bg-white p-4 rounded-xl overflow-x-auto">
+          <table className="w-full text-sm">
             <thead>
-              <tr className="text-center border-b border-gray-400 w-full text-[#7f7f7f] text-sm font-medium uppercase leading-[14px] tracking-wide">
+              <tr className="text-center border-b border-gray-400 text-[#7f7f7f] font-medium uppercase">
                 <th className="text-left px-2 py-2">Product</th>
-                <th className="px-2 py-2">price</th>
+                <th className="px-2 py-2">Price</th>
                 <th className="px-2 py-2">Quantity</th>
                 <th className="px-2 py-2">Subtotal</th>
-                <th className="w-7 px-2 py-2"></th>
+                <th className="px-2 py-2"></th>
               </tr>
             </thead>
             <tbody>
               {cartItems.map((cart, id) => (
-                <tr key={id} className="text-center">
-                  <td className="px-2 py-2 text-left align-top">
+                <tr key={id} className="text-center border-b border-gray-200">
+                  <td className="px-2 py-4 flex-1 sm:flex items-center gap-4">
                     <img
                       src={`http://localhost:3001/uploads/${cart?.Product?.productImageUrl}`}
                       alt={cart?.Product?.productName}
-                      className="w-[100px] mr-2 inline-block h-[100px]"
+                      className="w-[80px] h-[80px] object-cover rounded"
                     />
-
                     <span>{cart?.Product?.productName}</span>
                   </td>
-                  <td className="px-2 py-2">${cart?.Product?.productPrice}</td>
-                  <td className="p-2  bg-white rounded-[170px] border border-[#a0a0a0] justify-around items-center flex">
-                    <Plus
-                      className="size-4 cursor-pointer"
-                      onClick={() => handleQuantityChange("increment")}
-                    />
-
-                    <span className="w-10 text-center text-[#191919] text-base font-normal leading-normal">
-                      {cart?.quantity}
-                    </span>
-                    <Minus
-                      className="size-4 cursor-pointer"
-                      onClick={() => handleQuantityChange("decrement")}
-                    />
+                  <td className="px-2 py-4">${cart?.Product?.productPrice}</td>
+                  <td className="px-2 py-4">
+                    <div className="flex items-center justify-center border border-gray-300 rounded-full w-fit px-4 py-1">
+                      <Plus
+                        className="size-4 cursor-pointer"
+                        onClick={() => handleQuantityChange("increment")}
+                      />
+                      <span className="mx-3">{cart?.quantity}</span>
+                      <Minus
+                        className="size-4 cursor-pointer"
+                        onClick={() => handleQuantityChange("decrement")}
+                      />
+                    </div>
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="px-2 py-4">
                     ${(cart?.Product?.productPrice * cart?.quantity).toFixed(2)}
                   </td>
-                  <td className="px-2 py-2">
-                    {/* Delete Icon */}
-                    <Delete className="size-4 text-red-500" />
+                  <td className="px-2 py-4">
+                    <Delete className="size-4 text-red-500 cursor-pointer" />
                   </td>
                 </tr>
               ))}
             </tbody>
-
             <tfoot>
               <tr className="border-t border-gray-400">
-                <td className="px-2 py-2" col-span="3">
+                <td colSpan={3} className="py-4">
                   <Link
                     to="/products"
-                    className="px-8 cursor-pointer py-3.5 bg-[#f2f2f2] rounded-[43px] text-[#4c4c4c] text-sm font-semibold classNameName leading-[16px]"
+                    className="inline-block px-6 py-3 bg-gray-200 rounded-full text-sm font-semibold text-gray-700"
                   >
-                    Return to shop
+                    Return to Shop
                   </Link>
                 </td>
-                <td className="px-2 py-2" col-span="2">
-                  <button className="px-8 py-3.5 cursor-pointer bg-[#f2f2f2] rounded-[43px] text-[#4c4c4c] text-sm font-semibold classNameName leading-[16px]">
+                <td colSpan={2} className="py-4 text-right">
+                  <button className="px-6 py-3 bg-gray-200 rounded-full text-sm font-semibold text-gray-700">
                     Update Cart
                   </button>
                 </td>
@@ -100,50 +100,44 @@ const Cart = () => {
             </tfoot>
           </table>
         </div>
-        <div className="w-[424px] bg-white rounded-lg p-6">
-          <h2 className="text-[#191919] mb-2 text-xl font-medium leading-[30px]">
+
+        {/* Right: Cart Summary */}
+        <div className="w-full lg:w-1/3 bg-white rounded-lg p-6">
+          <h2 className="text-[#191919] mb-4 text-xl font-medium">
             Cart Total
           </h2>
-          <div className="w-[376px] py-3 justify-between items-center flex">
-            <span className="text-[#4c4c4c] text-base font-normal leading-normal">
-              Total:
-            </span>
-            <span className="text-[#191919] text-base font-semibold leading-tight">
-              $84.00
-            </span>
+
+          <div className="flex justify-between py-2">
+            <span className="text-gray-600">Total:</span>
+            <span className="font-semibold text-[#191919]">$84.00</span>
           </div>
-          <div className="w-[376px] py-3 shadow-[0px_1px_0px_0px_rgba(229,229,229,1.00)] justify-between items-center flex">
-            <span className="text-[#4c4c4c] text-sm font-normal leading-[21px]">
-              Shipping:
-            </span>
-            <span className="text-[#191919] text-sm font-medium leading-[21px]">
-              Free
-            </span>
+          <div className="flex justify-between border-t py-2">
+            <span className="text-gray-600">Shipping:</span>
+            <span className="font-medium text-[#191919]">Free</span>
           </div>
-          <div className="w-[376px] py-3 shadow-[0px_1px_0px_0px_rgba(229,229,229,1.00)] justify-between items-center flex">
-            <span className="text-[#4c4c4c] text-sm font-normal leading-[21px]">
-              Subtotal:
-            </span>
-            <span className="text-[#191919] text-sm font-medium leading-[21px]">
-              $84.00
-            </span>
+          <div className="flex justify-between border-t py-2">
+            <span className="text-gray-600">Subtotal:</span>
+            <span className="font-medium text-[#191919]">$84.00</span>
           </div>
-          <button className="w-[376px] text-white mt-5 px-10 py-4 bg-[#00b206] rounded-[44px] gap-4 text-base font-semibold leading-tight">
-            Proceed to checkout
+
+          <button className="w-full text-white mt-5 px-6 py-3 bg-[#00b206] rounded-full text-base font-semibold">
+            Proceed to Checkout
           </button>
         </div>
       </div>
-      <div className="mt-6 p-5 w-[800px] bg-white rounded-lg border border-[#e6e6e6] justify-start items-center gap-6 inline-flex">
-        <h3 className="text-[#191919] w-1/4 text-xl font-medium classNameName leading-[30px]">
+
+      {/* Coupon Code */}
+      <div className="mt-6 bg-white rounded-lg border border-[#e6e6e6] p-5 flex flex-col lg:flex-row gap-4">
+        <h3 className="text-[#191919] text-xl font-medium lg:w-1/4">
           Coupon Code
         </h3>
-        <div className="w-full border border-[#e6e6e6]">
+        <div className="flex flex-col sm:flex-row w-full items-start sm:items-center gap-4">
           <input
             placeholder="Enter code"
             type="text"
-            className="w-2/3 px-6 py-3.5 outline-none bg-white rounded-[46px] text-[#999999] text-base font-normal leading-normal"
+            className="flex-1 px-4 py-3 rounded-full border text-sm outline-none"
           />
-          <button className="px-10 py-4 bg-[#333333] rounded-[43px] text-white text-base font-semibold leading-tight">
+          <button className="px-6 py-3 bg-[#333333] rounded-full text-white text-sm font-semibold">
             Apply Coupon
           </button>
         </div>

@@ -11,7 +11,7 @@ const MainLayout = () => {
       <Topbar />
       <Searchbar />
       <Navbar />
-      <main className="px-[10%] pt-[2%]">
+      <main className="px-[5%] sm:px-[10%] py-[2%]">
         <Outlet />
       </main>
 
